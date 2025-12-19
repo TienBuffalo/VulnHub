@@ -5,11 +5,12 @@ a2enmod rewrite
 nano /etc/apache2/sites-available/vp-wordpress.conf
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    ServerName 192.168.121.134
+    ServerName localhost
+    ServerAlias *
     DocumentRoot /var/www/html
 
     <Directory /var/www/html>
-        Options Indexes FollowSymLinks
+        Options FollowSymLinks
         AllowOverride All
         Require all granted
     </Directory>
@@ -89,3 +90,16 @@ function vpbank_check_system_status($request) {
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
 systemctl restart apache2
+
+
+- DC
+web/=Jw7-KrJl&X{6dfrcwf'T~mM
+db/$F7S9DB3N2aV[-!5F}I^B-XH
+AD/d'a~^NWU[IfUYbc$Lt6-+c6z
+backup/(2f=[%X_#l1yR5RXCp9$SaS+
+file/X@{6HvDz]g5aTAs,!Hxb&+9N
+
+- DR
+drweb/WR'=X'pcH+pLCE)__l;_N}w9
+drdb/~gNRs1,qE(xKOa2u1r#pYe9'
+drbackup/cCX&,[jsmRW8o7lmnvl)gI_;
