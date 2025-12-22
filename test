@@ -93,3 +93,27 @@ systemctl restart apache2
 
 
 Z*wrVRJY2*.h7ElWx02NXpxM?t4sAIbU
+
+
+<Sysmon schemaversion="4.30">
+ <HashAlgorithms>md5,sha256</HashAlgorithms>
+ <EventFiltering>
+   <ProcessCreate onmatch="include">
+     <Image condition="contains">svchost_update.exe</Image>
+     <CommandLine condition="contains">powershell</CommandLine>
+   </ProcessCreate>
+
+   <FileCreate onmatch="include">
+     <TargetFilename condition="end with">.vpb_lock</TargetFilename>
+     <TargetFilename condition="contains">RANSOM_NOTE.txt</TargetFilename>
+     <TargetFilename condition="contains">ntds.dit</TargetFilename>
+   </FileCreate>
+ </EventFiltering>
+</Sysmon>
+
+<localfile>
+ <location>Microsoft-Windows-Sysmon/Operational</location>
+ <log_format>eventchannel</log_format>
+</localfile>
+
+
