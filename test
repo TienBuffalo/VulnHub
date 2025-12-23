@@ -96,24 +96,41 @@ Z*wrVRJY2*.h7ElWx02NXpxM?t4sAIbU
 
 
 <Sysmon schemaversion="4.30">
- <HashAlgorithms>md5,sha256</HashAlgorithms>
- <EventFiltering>
-   <ProcessCreate onmatch="include">
-     <Image condition="contains">svchost_update.exe</Image>
-     <CommandLine condition="contains">powershell</CommandLine>
-   </ProcessCreate>
+  <HashAlgorithms>md5,sha256</HashAlgorithms>
+  <EventFiltering>
+    <ProcessCreate onmatch="include">
+      <Image condition="contains">svchost_update.exe</Image>
+      <Image condition="contains">python.exe</Image>
+      <CommandLine condition="contains">powershell</CommandLine>
+    </ProcessCreate>
 
-   <FileCreate onmatch="include">
-     <TargetFilename condition="end with">.vpb_lock</TargetFilename>
-     <TargetFilename condition="contains">RANSOM_NOTE.txt</TargetFilename>
-     <TargetFilename condition="contains">ntds.dit</TargetFilename>
-   </FileCreate>
- </EventFiltering>
+    <FileCreate onmatch="include">
+      <TargetFilename condition="end with">.vpb_lock</TargetFilename>
+      <TargetFilename condition="contains">RANSOM_NOTE.txt</TargetFilename>
+      <TargetFilename condition="contains">ntds.dit</TargetFilename>
+    </FileCreate>
+    
+    <RegistryEvent onmatch="include">
+      <TargetObject condition="contains">Services\WindowsSystemUpdateHelper</TargetObject>
+    </RegistryEvent>
+  </EventFiltering>
 </Sysmon>
 
-<localfile>
- <location>Microsoft-Windows-Sysmon/Operational</location>
- <log_format>eventchannel</log_format>
-</localfile>
+Sysmon64.exe -i sysmon_config.xml
 
+
+
+C:\Program Files (x86)\ossec-agent\ossec.conf
+
+<ossec_config>
+  <localfile>
+    <location>Microsoft-Windows-Sysmon/Operational</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+  
+  <localfile>
+    <location>Security</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+</ossec_config>
 
